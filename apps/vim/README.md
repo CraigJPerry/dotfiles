@@ -2,7 +2,7 @@
 No default keybindings have been disabled. Some extra keybindings have
 been added:
 
-Leader is set to ,
+Leader is set to `,`
 
 
 #### Normal Mode Keybindings ####
