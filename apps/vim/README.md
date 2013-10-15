@@ -7,33 +7,33 @@ Leader is set to ,
 
 #### Normal Mode Keybindings ####
 
-* <F2> Toggle Paste Mode
-* Y copies to end of line (for consistency with C & D commands)
-* <SPACE> Clears any highlights or status messages in the buffer
-* <leader>8 goes to the 79th column of text 
-* Control-Shift-u Drag current line up 1 line
-* Control-Shift-d Drag current line down 1 line
-* <leader>jp validates & reformats a buffer containing JSON
+* `<F2>` Toggle Paste Mode
+* `Y` copies to end of line (for consistency with C & D commands)
+* `<SPACE>` Clears any highlights or status messages in the buffer
+* `<leader>8` goes to the 79th column of text 
+* `Control-Shift-u` Drag current line up 1 line
+* `Control-Shift-d` Drag current line down 1 line
+* `<leader>jp` validates & reformats a buffer containing JSON
 
 #### Insert Mode Keybindings ####
 
-* <F2> Toggle Paste Mode
-* Control-Shift-u Drag current line up 1 line
-* Control-Shift-d Drag current line down 1 line
+* `<F2>` Toggle Paste Mode
+* `Control-Shift-u` Drag current line up 1 line
+* `Control-Shift-d` Drag current line down 1 line
 
 #### Visual Mode Keybindings ####
 
-* Control-Shift-u Drag current line up 1 line
-* Control-Shift-d Drag current line down 1 line
-* * searches forward for selected word
-* # searches backward for selected word
+* `Control-Shift-u` Drag current line up 1 line
+* `Control-Shift-d` Drag current line down 1 line
+* `*` searches forward for selected word
+* `#` searches backward for selected word
 
 #### Ex Mode Keybindings ####
 
-* :Q performs same function as :q (since i typo this all the time!)
-* Control-a goes to start of line (like bash / readline in emacs mode)
-* Control-e goes to end of line
-* Control-w delete word to the left of cursor
+* `:Q` performs same function as :q (since i typo this all the time!)
+* `Control-a` goes to start of line (like bash / readline in emacs mode)
+* `Control-e` goes to end of line
+* `Control-w` delete word to the left of cursor
 
 
 ### Plugins ###
