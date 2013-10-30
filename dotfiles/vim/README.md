@@ -10,7 +10,7 @@ Leader is set to `,`
 * `<F2>` Toggle Paste Mode
 * `Y` copies to end of line (for consistency with C & D commands)
 * `<SPACE>` Clears any highlights or status messages in the buffer
-* `<leader>8` goes to the 79th column of text 
+* `<leader>8` goes to the 79th column of text
 * `Control-Shift-u` Drag current line up 1 line
 * `Control-Shift-d` Drag current line down 1 line
 * `<leader>jp` validates & reformats a buffer containing JSON
@@ -44,7 +44,7 @@ Plugins are managed by [Vundle](https://github.com/gmarik/vundle).
 * [Easy Motion](https://github.com/Lokaltog/vim-easymotion)
 * [VIM Colorschemes](https://github.com/flazz/vim-colorschemes)
 * [UltiSnips](https://launchpad.net/ultisnips)
-* [Syntastic](https://github.com/scrooloose/syntastic) 
+* [Syntastic](https://github.com/scrooloose/syntastic)
 * [VIM Surround](https://github.com/tpope/vim-surround)
 * [VIM CF3](https://github.com/neilhwatson/vim_cf3)
 
