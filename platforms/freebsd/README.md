@@ -1,1 +1,0 @@
-freebsd specific customisations.
