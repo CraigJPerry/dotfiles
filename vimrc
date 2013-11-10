@@ -1,6 +1,10 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Craig's vimrc (with Vundle version)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" sudo yum -y install vim-enhanced pylint python-pep8 python-jedi
+" mkdir -p ~/.vim/bundle
+" git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
+" vim +BundleInstall +qall
  
 
 let mapleader=','
