@@ -31,24 +31,24 @@ Bundle 'Lokaltog/vim-easymotion'
 " OPTIONAL: Requires patched fonts to be installed:
 " https://github.com/Lokaltog/powerline-fonts
 "
-" Bundle 'bling/vim-airline'  " Remember to disable statusline below
-" let g:airline_powerline_fonts=1
-" set ttimeoutlen=50
-" set laststatus=2
+Bundle 'bling/vim-airline'
+let g:airline_powerline_fonts=1
+set laststatus=2
+set ttimeoutlen=50
 " set ambiwidth=double
-" 
-" Status line area, instead of powerline / airline setup
-function! HasPaste()
-    if &paste
-        return '[PASTE] '
-    en
-    return ''
-endfunction
+
 set showcmd
 set report=0
 set cmdheight=1
-set laststatus=2
-set statusline=\ %(%f\ %<%r%m%)\ \ %y\ \ %{HasPaste()}\ \ %{getcwd()}%=\ %(Bu:\ %n\ Pos:\ %c,%l\ (%p%%)%)\
+" Status line area, instead of powerline / airline setup
+" function! HasPaste()
+"     if &paste
+"         return '[PASTE] '
+"     en
+"     return ''
+" endfunction
+" set laststatus=2
+" set statusline=\ %(%f\ %<%r%m%)\ \ %y\ \ %{HasPaste()}\ \ %{getcwd()}%=\ %(Bu:\ %n\ Pos:\ %c,%l\ (%p%%)%)\
 
 Bundle 'flazz/vim-colorschemes'
 colorscheme Monokai
