@@ -16,9 +16,9 @@ function add2path() {
   fi
 }
 #export PATH="~/bin"
-add2path "~/bin"
+add2path "$HOME/bin"
 # Python, XDG etc.
-add2path "~/.local/bin"
+add2path "$HOME/.local/bin"
 # MacPorts
 add2path "/opt/local/sbin"
 add2path "/opt/local/bin"
@@ -218,4 +218,6 @@ fi
 if [ -r ~/.bash_completion ]; then
     . ~/.bash_completion
 fi
+
+[[ -x /usr/bin/virtualenvwrapper.sh ]] && . /usr/bin/virtualenvwrapper.sh
 
