@@ -36,10 +36,10 @@ let g:airline_powerline_fonts=1
 set laststatus=2
 set ttimeoutlen=50
 " set ambiwidth=double
-
-set showcmd
 set report=0
-set cmdheight=1
+
+" set showcmd
+" set cmdheight=1
 " Status line area, instead of powerline / airline setup
 " function! HasPaste()
 "     if &paste
@@ -72,6 +72,8 @@ au BufRead,BufNewFile *.cfe normal zR
 let EnableCFE3KeywordAbbreviations=1
 
 Bundle 'scrooloose/nerdcommenter'
+
+Bundle 'airblade/vim-gitgutter'
 
 filetype plugin indent on
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -121,6 +123,9 @@ if &term =~ "xterm"
   let &t_Co=256
 endif
 syntax on
+
+set guifont=Liberation\ Mono\ for\ Powerline\ 10
+set guioptions-=T
 
 " Line numbers in the gutter, relativenumber feature only available vim >= 7.03
 if version >= 703
