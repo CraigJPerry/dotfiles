@@ -30,6 +30,9 @@ let g:airline#extensions#tabline#enabled=1
 set ttimeoutlen=50
 set ambiwidth=double
 
+" Enable 256 colours with PuTTY
+set term=xterm
+let &t_Co=256
 Bundle 'flazz/vim-colorschemes'
 colorscheme Monokai
 
@@ -96,9 +99,6 @@ set smartcase " Case insensitive search unless a capital is in the search term
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Interface / View Setup
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Enable 256 colours with PuTTY
-set term=xterm
-let &t_Co=256
 syntax on
 
 set laststatus=2
