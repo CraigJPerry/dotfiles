@@ -159,6 +159,7 @@ command! Q q
 
 " Control-x to write-quit-all
 nnoremap <C-x> :wqa!<CR>
+inoremap <C-x> <C-o>:wqa!<CR>
 
 set backspace=eol,start,indent
 
