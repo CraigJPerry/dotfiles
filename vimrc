@@ -157,6 +157,9 @@ set hlsearch
 " Map :Q to :q, i mess this up constantly
 command! Q q
 
+" Control-x to write-quit-all
+nnoremap <C-x> :wqa!<CR>
+
 set backspace=eol,start,indent
 
 " Map Y like D, C etc. behave (to end of line)
