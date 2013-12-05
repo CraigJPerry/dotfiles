@@ -97,9 +97,8 @@ set smartcase " Case insensitive search unless a capital is in the search term
 " Interface / View Setup
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable 256 colours with PuTTY
-if &term =~ "xterm"
-  let &t_Co=256
-endif
+set term=xterm
+let &t_Co=256
 syntax on
 
 set laststatus=2
