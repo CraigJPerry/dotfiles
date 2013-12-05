@@ -25,27 +25,11 @@ Bundle 'gmarik/vundle'
 " Bundles Go Here...
 Bundle 'Lokaltog/vim-easymotion'
 
-" OPTIONAL: Requires patched fonts to be installed:
-" https://github.com/Lokaltog/powerline-fonts
-"
 Bundle 'bling/vim-airline'
 let g:airline_powerline_fonts=1
-set laststatus=2
+let g:airline#extensions#tabline#enabled=1
 set ttimeoutlen=50
-" set ambiwidth=double
-
-set showcmd
-set report=0
-set cmdheight=1
-" Status line area, instead of powerline / airline setup
-" function! HasPaste()
-"     if &paste
-"         return '[PASTE] '
-"     en
-"     return ''
-" endfunction
-" set laststatus=2
-" set statusline=\ %(%f\ %<%r%m%)\ \ %y\ \ %{HasPaste()}\ \ %{getcwd()}%=\ %(Bu:\ %n\ Pos:\ %c,%l\ (%p%%)%)\
+set ambiwidth=double
 
 Bundle 'flazz/vim-colorschemes'
 colorscheme Monokai
@@ -53,12 +37,10 @@ colorscheme Monokai
 " Requires vim compiled with python
 Bundle 'SirVer/ultisnips'
 
-" Remember to "pip install pylint pep8"
 Bundle 'scrooloose/syntastic'
 
 Bundle 'tpope/vim-surround'
 
-" Remember to "pip install jedi" - to install the jedi library
 Bundle 'davidhalter/jedi-vim'
 
 Bundle 'neilhwatson/vim_cf3'
@@ -69,6 +51,8 @@ au BufRead,BufNewFile *.cfe normal zR
 let EnableCFE3KeywordAbbreviations=1
 
 Bundle 'scrooloose/nerdcommenter'
+
+Bundle 'mhinz/vim-signify'
 
 filetype plugin indent on
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -118,6 +102,11 @@ if &term =~ "xterm"
   let &t_Co=256
 endif
 syntax on
+
+set laststatus=2
+set showcmd
+set cmdheight=1
+set report=0
 
 " Line numbers in the gutter, relativenumber feature only available vim >= 7.03
 if version >= 703
