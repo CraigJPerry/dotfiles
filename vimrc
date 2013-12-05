@@ -1,7 +1,10 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Craig's vimrc (with Vundle version)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" sudo yum -y install vim-enhanced pylint python-pep8 python-jedi
+" Install a powerline font https://github.com/Lokaltog/powerline-fonts
+" Install dependencies:
+"    sudo yum -y install git vim-enhanced pylint python-pep8 python-jedi
+"    (non-root) pip install --user pylint pep8 jedi
 " mkdir -p ~/.vim/bundle
 " git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
 " vim +BundleInstall +qall
@@ -13,12 +16,6 @@ let mapleader=','
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vundle (Package Manager) Setup
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Brief help
-" :BundleList          - list configured bundles
-" :BundleInstall(!)    - install(update) bundles
-" :BundleSearch(!) foo - search(or refresh cache first) for foo
-" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
-"
 set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/vundle/
