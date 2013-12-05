@@ -185,6 +185,12 @@ inoremap <C-S-u> <Esc>:m .-2<CR>==gi
 inoremap <C-S-d> <Esc>:m .+1<CR>==gi
 vnoremap <C-S-u> :m '<-2<CR>gv=gv
 vnoremap <C-S-d> :m '>+1<CR>gv=gv
+
+" Buffer management
+nnoremap <leader>b :buffers<CR>:buffer 
+
+" Tab management
+nnoremap <leader>t :tabs<CR>:tab 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " End Key bindings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
