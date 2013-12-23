@@ -1,24 +1,20 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Craig's vimrc (with Vundle version)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" sudo yum -y install vim-enhanced pylint python-pep8 python-jedi
+" Install a powerline font https://github.com/Lokaltog/powerline-fonts
+" Install dependencies:
+"    sudo yum -y install git vim-enhanced pylint python-pep8 python-jedi
+"    (non-root) pip install --user pylint pep8 jedi
 " mkdir -p ~/.vim/bundle
 " git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
 " vim +BundleInstall +qall
- 
+
 
 let mapleader=','
- 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vundle (Package Manager) Setup
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Brief help
-" :BundleList          - list configured bundles
-" :BundleInstall(!)    - install(update) bundles
-" :BundleSearch(!) foo - search(or refresh cache first) for foo
-" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
-"
 set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/vundle/
@@ -28,40 +24,26 @@ Bundle 'gmarik/vundle'
 " Bundles Go Here...
 Bundle 'Lokaltog/vim-easymotion'
 
-" OPTIONAL: Requires patched fonts to be installed:
-" https://github.com/Lokaltog/powerline-fonts
-"
 Bundle 'bling/vim-airline'
 let g:airline_powerline_fonts=1
-set laststatus=2
+let g:airline#extensions#tabline#enabled=1
 set ttimeoutlen=50
-" set ambiwidth=double
 set report=0
+set ambiwidth=double
 
-" set showcmd
-" set cmdheight=1
-" Status line area, instead of powerline / airline setup
-" function! HasPaste()
-"     if &paste
-"         return '[PASTE] '
-"     en
-"     return ''
-" endfunction
-" set laststatus=2
-" set statusline=\ %(%f\ %<%r%m%)\ \ %y\ \ %{HasPaste()}\ \ %{getcwd()}%=\ %(Bu:\ %n\ Pos:\ %c,%l\ (%p%%)%)\
-
+" Enable 256 colours with PuTTY
+set term=xterm
+let &t_Co=256
 Bundle 'flazz/vim-colorschemes'
 colorscheme Monokai
 
 " Requires vim compiled with python
 Bundle 'SirVer/ultisnips'
 
-" Remember to "pip install pylint pep8"
 Bundle 'scrooloose/syntastic'
 
 Bundle 'tpope/vim-surround'
 
-" Remember to "pip install jedi" - to install the jedi library
 Bundle 'davidhalter/jedi-vim'
 
 Bundle 'neilhwatson/vim_cf3'
@@ -73,7 +55,7 @@ let EnableCFE3KeywordAbbreviations=1
 
 Bundle 'scrooloose/nerdcommenter'
 
-Bundle 'airblade/vim-gitgutter'
+Bundle 'mhinz/vim-signify'
 
 filetype plugin indent on
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -118,10 +100,6 @@ set smartcase " Case insensitive search unless a capital is in the search term
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Interface / View Setup
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Enable 256 colours with PuTTY
-if &term =~ "xterm"
-  let &t_Co=256
-endif
 syntax on
 
 set guifont=Liberation\ Mono\ for\ Powerline\ 10
@@ -176,6 +154,11 @@ set hlsearch
 " Map :Q to :q, i mess this up constantly
 command! Q q
 
+" Control-x to write-quit-all
+nnoremap <C-x> :wqa!<CR>
+inoremap <C-x> <C-o>:wqa!<CR>
+vnoremap <C-x> <C-c>:wqa!<CR>
+
 set backspace=eol,start,indent
 
 " Map Y like D, C etc. behave (to end of line)
@@ -204,10 +187,15 @@ inoremap <C-S-u> <Esc>:m .-2<CR>==gi
 inoremap <C-S-d> <Esc>:m .+1<CR>==gi
 vnoremap <C-S-u> :m '<-2<CR>gv=gv
 vnoremap <C-S-d> :m '>+1<CR>gv=gv
+
+" Buffer management
+nnoremap <leader>b :buffers<CR>:buffer 
+
+" Tab management
+nnoremap <leader>t :tabs<CR>:tab 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " End Key bindings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
- 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Mode Specific - Visual
@@ -230,7 +218,6 @@ endfunction
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " End Mode Specific - Visual
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
- 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " File Content - Python
@@ -244,7 +231,6 @@ set errorformat=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " End File Content - Python
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
- 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " File Content - JSON
