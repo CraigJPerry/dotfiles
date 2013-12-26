@@ -3,6 +3,8 @@
 	email = craigp84@gmail.com
 [push]
 	default = simple
+[core]
+    editor = vim
 [alias]
     st = status
     ca = commit -a
