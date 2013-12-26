@@ -1,0 +1,14 @@
+[user]
+	name = Craig J Perry
+	email = craigp84@gmail.com
+[push]
+	default = simple
+[alias]
+    st = status
+    ca = commit -a
+    lg = log --graph --oneline
+[color]
+    branch = auto
+    diff = auto
+    status = auto
+
