@@ -1,0 +1,63 @@
+---
+
+# Ansible playbook to install dotfiles
+#
+# DOTFILE INSTALLATION
+# 1. Requires ansible installed:
+#      [user@host ~]$ pip install ansible
+# 2. Test-run with:
+#      [user@host dotfiles]$ ansible-playbook --connection=local --inventory-file=localhost, --check install.yml
+#    NB: the , after localhost is required
+# 3. Remove the --check parameter to apply changes for real
+# 4. It's a good idea (but not required) to create a branch for each host
+#      [user@host ~]$ git checkout -b hostname
+#
+# DOTFILE ROLLBACK
+# 1. Revert to backed up original dotfiles with:
+#   [user@host ~]$ ansible-playbook --connection=local --inventory-file=localhost, install.yml --tags rollback
+
+- hosts: all
+
+  vars:
+
+    this_dir: "{{ ansible_env.PWD }}"
+    backup_dir: ~/.dotfiles.old
+    dotfiles:
+      - source: bashrc
+        dest: .bashrc
+      - source: bash_profile
+        dest: .bash_profile
+      - source: bash_logout
+        dest: .bash_logout
+      - source: gitconfig
+        dest: .gitconfig
+
+  tasks:
+
+    - name: Create backup folder for pre-existing dotfiles
+      register: this_is_an_installation_run
+      file: state=directory path={{ backup_dir }}
+
+    - name: Backup existing dotfiles
+      copy: src=~/{{ item.dest }} dest={{ backup_dir }}/{{ item.source }} backup=yes
+      ignore_errors: yes
+      with_items: dotfiles
+
+    - name: Link dotfiles into place
+      file: state=link force=yes src={{ this_dir }}/{{ item.source }} dest=~/{{ item.dest }}
+      with_items: dotfiles
+
+    - name: Delete linked dotfiles
+      file: state=absent path={{ this_dir }}/{{ item.dest }}
+      with_items: dotfiles
+      tags:
+        - rollback
+      when: this_is_an_installation_run is not defined
+
+    - name: Restore backups
+      copy: src={{ backup_dir }}/{{ item.source }} dest=~/{{ item.dest }}
+      with_items: dotfiles
+      tags:
+        - rollback
+      when: this_is_an_installation_run is not defined
+
