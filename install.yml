@@ -29,3 +29,7 @@
       ignore_errors: yes
       with_items: dotfiles
 
+    - name: Link dotfiles into place
+      file: state=link force=yes src={{ ansible_env.PWD }}/{{ item.source }} dest=~/{{ item.dest }}
+      with_items: dotfiles
+
