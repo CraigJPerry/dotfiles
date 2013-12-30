@@ -10,6 +10,7 @@
 
   vars:
 
+    this_dir: "{{ ansible_env.PWD }}"
     backup_dir: ~/.dotfiles.old
     dotfiles:
       - source: bashrc
@@ -32,6 +33,6 @@
       with_items: dotfiles
 
     - name: Link dotfiles into place
-      file: state=link force=yes src={{ ansible_env.PWD }}/{{ item.source }} dest=~/{{ item.dest }}
+      file: state=link force=yes src={{ this_dir }}/{{ item.source }} dest=~/{{ item.dest }}
       with_items: dotfiles
 
