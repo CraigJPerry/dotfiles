@@ -1,19 +1,14 @@
 #!/bin/bash # Never actually run directly, helps syntax highlighter though
-################################################################################
-# Bash Profile
-################################################################################
+# .bash_profile
 
-
-################################################################################
-# Welcome Screen
-################################################################################
-# TODO: If uptime < 1 day, show red, < 2 = amber
-#
-
-
-# Most config happens in bashrc
-if [ -r ~/.bashrc ]; then
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
     . ~/.bashrc
 fi
 
+# User specific environment and startup programs
+
+PATH=$PATH:$HOME/.local/bin:$HOME/bin
+
+export PATH
 
