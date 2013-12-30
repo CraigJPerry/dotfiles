@@ -5,11 +5,13 @@
 # DOTFILE INSTALLATION
 # 1. Requires ansible installed:
 #      [user@host ~]$ pip install ansible
-# 2. Test-run with:
+# 2. Clone this repo to a convenient location:
+#      [user@host ~]$ git clone dotfiles ~/.dotfiles
+# 3. Test-run with:
 #      [user@host dotfiles]$ ansible-playbook --connection=local --inventory-file=localhost, --check install.yml
 #    NB: the , after localhost is required
-# 3. Remove the --check parameter to apply changes for real
-# 4. It's a good idea (but not required) to create a branch for each host
+# 4. Remove the --check parameter to apply changes for real
+# 5. It's a good idea (but not required) to create a branch for each host
 #      [user@host ~]$ git checkout -b hostname
 #
 # DOTFILE ROLLBACK
