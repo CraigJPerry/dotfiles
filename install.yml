@@ -2,9 +2,19 @@
 
 # Ansible playbook to install dotfiles
 #
-# Test-run with (NB: , after localhost is required):
-#   [user@host ~]$ ansible-playbook --connection=local --inventory-file=localhost, --check install.yml
-# Remove the --check to apply for real
+# DOTFILE INSTALLATION
+# 1. Requires ansible installed:
+#      [user@host ~]$ pip install ansible
+# 2. Test-run with:
+#      [user@host dotfiles]$ ansible-playbook --connection=local --inventory-file=localhost, --check install.yml
+#    NB: the , after localhost is required
+# 3. Remove the --check parameter to apply changes for real
+# 4. It's a good idea (but not required) to create a branch for each host
+#      [user@host ~]$ git checkout -b hostname
+#
+# DOTFILE ROLLBACK
+# 1. Revert to backed up original dotfiles with:
+#   [user@host ~]$ ansible-playbook --connection=local --inventory-file=localhost, install.yml --tags rollback
 
 - hosts: all
 
@@ -36,9 +46,6 @@
     - name: Link dotfiles into place
       file: state=link force=yes src={{ this_dir }}/{{ item.source }} dest=~/{{ item.dest }}
       with_items: dotfiles
-
-    # Rollback / remove these dotfiles, restoring previous backups
-    #   [user@host ~]$ ansible-playbook --connection=local --inventory-file=localhost, --check install.yml --tags rollback
 
     - name: Delete linked dotfiles
       file: state=absent path={{ this_dir }}/{{ item.dest }}
