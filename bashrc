@@ -27,7 +27,7 @@ function parse_git_dirty {
   git diff --no-ext-diff --quiet --exit-code &> /dev/null || echo "*"
 }
 function parse_git_branch {
-  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/(\1$(parse_git_dirty))/"
+  git branch --no-color 2> /dev/null | sed -e "/^[^*]/d" -e "s/* \(.*\)/(\1$(parse_git_dirty))/"
 }
 export PS1="[\u@\h \W]\$(parse_git_branch)\$ "
 
@@ -41,9 +41,24 @@ alias grep="grep --color=auto"
 alias c="clear"
 alias d="date"
 # Grep for a running process
-alias pg='ps -ef | head -n1 ; ps -efH | grep -v grep | grep -i'
+alias pg="ps -ef | head -n1 ; ps -efH | grep -v grep | grep -i"
 # This makes it easy to answer "when did you do X?" during releases
 alias ts="echo \"  [====================  \`date \"+%Y-%m-%d %H:%M:%S\"\`  ====================]  \""
+# Common git activities
+alias gst="git branch -a && git status"
+alias gdc="git diff --cached"
+alias gd="git diff"
+alias gm="git merge --no-ff"
+alias ghm="git checkout master"
+alias ghb="git checkout -b"
+alias gcm="git commit"
+alias gca="git commit -a"
+alias grb="git reset HEAD~1"
+alias gpo="git push origin"
+alias gpl="git pull"
+alias gl="git lg"            # See [aliases] in .gitconfig
+alias gt="git tag -a"
+alias gf="git fetch"
 
 # Includes
 if which virtualenvwrapper.sh > /dev/null 2>&1; then
