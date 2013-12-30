@@ -32,6 +32,7 @@ function parse_git_branch {
 export PS1="[\u@\h \W]\$(parse_git_branch)\$ "
 
 # Variables
+export CDPATH="$HOME/Code/public"
 export EDITOR="vim -f"       # Keep vim in foreground
 
 # Aliases
@@ -46,11 +47,13 @@ alias pg="ps -ef | head -n1 ; ps -efH | grep -v grep | grep -i"
 alias ts="echo \"  [====================  \`date \"+%Y-%m-%d %H:%M:%S\"\`  ====================]  \""
 # Common git activities
 alias gst="git branch -a && git status"
+alias gbd="git branch -d"
 alias gdc="git diff --cached"
 alias gd="git diff"
 alias gm="git merge --no-ff"
 alias ghm="git checkout master"
 alias ghb="git checkout -b"
+alias gh="git checkout"
 alias gcm="git commit"
 alias gca="git commit -a"
 alias grb="git reset HEAD~1"
