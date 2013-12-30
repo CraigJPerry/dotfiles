@@ -1,6 +1,10 @@
 ---
 
 # Ansible playbook to install dotfiles
+#
+# Test-run with (NB: , after localhost is required):
+#   [user@host ~]$ ansible-playbook --connection=local --inventory-file=localhost, --check install.yml
+# Remove the --check to apply for real
 
 - hosts: all
 
@@ -21,7 +25,7 @@
       file: state=directory path={{ backup_dir }}
 
     - name: Backup existing dotfiles
-      copy: src={{ item.dest }} dest={{ backup_dir }}/{{ item.source }}
+      copy: src=~/{{ item.dest }} dest={{ backup_dir }}/{{ item.source }}
       ignore_errors: yes
       with_items: dotfiles
 
