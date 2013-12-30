@@ -39,7 +39,7 @@
 
     # Installation (no --tags on ansible cmdline)
 
-    - name: BACKUP | Make Backup Folder: {{ backup_dir }}
+    - name: "BACKUP | Make Backup Folder: {{ backup_dir }}"
       register: this_is_an_installation_run
       file: state=directory path={{ backup_dir }}
 
