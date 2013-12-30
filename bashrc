@@ -49,10 +49,10 @@ alias ts="echo \"  [====================  \`date \"+%Y-%m-%d %H:%M:%S\"\`  =====
 if which virtualenvwrapper.sh > /dev/null 2>&1; then
     export PROJECT_HOME="$HOME/Code"
     export WORKON_HOME="$HOME/.virtualenvs"
-    source $(which virtualenvwrapper.sh)
+    . $(which virtualenvwrapper.sh)
 fi
 
-if [[ -r $HOME/.bashrc.local ]]; then
-    . $HOME/.bashrc.local
+if [[ -r ~/.bashrc.local ]]; then
+    . ~/.bashrc.local
 fi
 
