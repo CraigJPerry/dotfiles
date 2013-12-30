@@ -33,6 +33,8 @@
         dest: .bash_logout
       - source: gitconfig
         dest: .gitconfig
+      - source: vimrc
+        dest: .vimrc
 
   tasks:
 
@@ -50,6 +52,38 @@
     - name: Link dotfiles into place
       file: state=link force=yes src={{ this_dir }}/{{ item.source }} dest=~/{{ item.dest }}
       with_items: dotfiles
+
+    - name: Check if installing with root priviledges
+      command: id -u
+      register: effective_userid
+
+    - name: Install pre-requisites
+      yum: state=present name={{ item }}
+      sudo: {{ effective_userid.stdout != "0" | bool }}
+      with_items:
+        - vim-enhanced
+        - python-pip
+      when: ansible_os_family == "RedHat"
+
+    - name: Install latest versions of python modules
+      pip: state=present name={{ item }}
+      sudo: {{ effective_userid.stdout != "0" | bool }}
+      with_items:
+        - jedi
+        - pylint
+        - pep8
+
+    - name: Make vim bundle directory
+      file: state=directory path=~/.vim/bundle
+
+    - name: Clone vundle
+      git: repo="https://github.com/gmarik/vundle.git
+           dest=~/.vim/bundle/vundle
+      register: vundle_cloned
+
+    - name: Install Vundle Bundles
+      command: "vim +BundleInstall +qall"
+      when: vundle_cloned | changed
 
     # Rollback (--tags rollback)
 
