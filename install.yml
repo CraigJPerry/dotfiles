@@ -77,7 +77,7 @@
       file: state=directory path=~/.vim/bundle
 
     - name: Clone vundle
-      git: repo="https://github.com/gmarik/vundle.git
+      git: repo="https://github.com/gmarik/vundle.git"
            dest=~/.vim/bundle/vundle
       register: vundle_cloned
 
