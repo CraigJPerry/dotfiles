@@ -39,24 +39,25 @@
 
     # Installation (no --tags on ansible cmdline)
 
-    - name: Create backup folder for pre-existing dotfiles
+    - name: "BACKUP | Make Backup Folder: {{ backup_dir }}"
       register: this_is_an_installation_run
       file: state=directory path={{ backup_dir }}
 
-    - name: Backup existing dotfiles
+    - name: BACKUP | Backup Old Dotfiles
       copy: src=~/{{ item.dest }} dest={{ backup_dir }}/{{ item.source }} backup=yes
       ignore_errors: yes
       with_items: dotfiles
 
-    - name: Link dotfiles into place
+    - name: INSTALL DOTFILES | Link New Dotfiles
       file: state=link force=yes src={{ this_dir }}/{{ item.source }} dest=~/{{ item.dest }}
       with_items: dotfiles
 
-    - name: Check if installing with root priviledges
+    - name: CHECK | Effective User ID
       command: id -u
       register: effective_userid
+      changed_when: effective_userid.rc != 0
 
-    - name: Install pre-requisites
+    - name: INSTALL VIM PLUGINS | Pre-requisite RPMs
       yum: state=present name={{ item }}
       sudo: '{{ effective_userid.stdout != "0" | bool }}'
       ignore_errors: yes
@@ -65,7 +66,7 @@
         - python-pip
       when: ansible_os_family == "RedHat"
 
-    - name: Install latest versions of python modules
+    - name: INSTALL VIM PLUGINS | Pre-requisite Python Modules
       pip: state=present name={{ item }}
       sudo: '{{ effective_userid.stdout != "0" | bool }}'
       ignore_errors: yes
@@ -74,28 +75,28 @@
         - pylint
         - pep8
 
-    - name: Make vim bundle directory
+    - name: INSTALL VIM PLUGINS | Vim Bundle Directory
       file: state=directory path=~/.vim/bundle
 
-    - name: Clone vundle
+    - name: INSTALL VIM PLUGINS | Vundle Plugin Manager
       git: repo="https://github.com/gmarik/vundle.git"
            dest=~/.vim/bundle/vundle
       register: vundle_cloned
 
-    - name: Install Vundle Bundles
+    - name: INSTALL VIM PLUGINS | Install Vundle Bundles
       shell: "echo | vim -f +BundleInstall +qall"
       when: vundle_cloned | changed
 
     # Rollback (--tags rollback)
 
-    - name: Delete linked dotfiles
+    - name: ROLLBACK | Delete Linked Dotfiles
       file: state=absent path={{ this_dir }}/{{ item.dest }}
       with_items: dotfiles
       tags:
         - rollback
       when: this_is_an_installation_run is not defined
 
-    - name: Restore backups
+    - name: INSTALL VIM PLUGINS | Restore Backups
       copy: src={{ backup_dir }}/{{ item.source }} dest=~/{{ item.dest }}
       with_items: dotfiles
       tags:
