@@ -82,7 +82,7 @@
       register: vundle_cloned
 
     - name: Install Vundle Bundles
-      command: "vim -f +BundleInstall +qall"
+      shell: "echo | vim -f +BundleInstall +qall"
       when: vundle_cloned | changed
 
     # Rollback (--tags rollback)
