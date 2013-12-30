@@ -55,6 +55,7 @@
     - name: Check if installing with root priviledges
       command: id -u
       register: effective_userid
+      changed_when: effective_userid.rc != 0
 
     - name: Install pre-requisites
       yum: state=present name={{ item }}
