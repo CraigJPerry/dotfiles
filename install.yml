@@ -59,7 +59,7 @@
 
     - name: Install pre-requisites
       yum: state=present name={{ item }}
-      sudo: {{ effective_userid.stdout != "0" | bool }}
+      sudo: '{{ effective_userid.stdout != "0" | bool }}'
       with_items:
         - vim-enhanced
         - python-pip
@@ -67,7 +67,7 @@
 
     - name: Install latest versions of python modules
       pip: state=present name={{ item }}
-      sudo: {{ effective_userid.stdout != "0" | bool }}
+      sudo: '{{ effective_userid.stdout != "0" | bool }}'
       with_items:
         - jedi
         - pylint
