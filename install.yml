@@ -18,6 +18,8 @@
         dest: .bash_profile
       - source: bash_logout
         dest: .bash_logout
+      - source: gitconfig
+        dest: .gitconfig
 
   tasks:
 
