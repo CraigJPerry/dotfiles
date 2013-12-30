@@ -1,0 +1,27 @@
+---
+
+# Ansible playbook to install dotfiles
+
+- hosts: all
+
+  vars:
+
+    backup_dir: ~/.dotfiles.old
+    dotfiles:
+      - source: bashrc
+        dest: .bashrc
+      - source: bash_profile
+        dest: .bash_profile
+      - source: bash_logout
+        dest: .bash_logout
+
+  tasks:
+
+    - name: Create backup folder for pre-existing dotfiles
+      file: state=directory path={{ backup_dir }}
+
+    - name: Backup existing dotfiles
+      copy: src={{ item.dest }} dest={{ backup_dir }}/{{ item.source }}
+      ignore_errors: yes
+      with_items: dotfiles
+
