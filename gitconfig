@@ -1,8 +1,8 @@
 [user]
-	name = Craig J Perry
-	email = craigp84@gmail.com
+    name = Craig J Perry
+    email = craigp84@gmail.com
 [push]
-	default = simple
+    default = simple
 [core]
     editor = vim
 [alias]
