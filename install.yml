@@ -7,11 +7,10 @@
 #      [user@host ~]$ pip install ansible
 # 2. Clone this repo to a convenient location:
 #      [user@host ~]$ git clone dotfiles ~/.dotfiles
-# 3. Test-run with:
-#      [user@host dotfiles]$ ansible-playbook --connection=local --inventory-file=localhost, --check install.yml
+# 3. Run with:
+#      [user@host dotfiles]$ ansible-playbook --connection=local --inventory-file=localhost, install.yml
 #    NB: the , after localhost is required
-# 4. Remove the --check parameter to apply changes for real
-# 5. It's a good idea (but not required) to create a branch for each host
+# 4. It's a good idea (but not required) to create a branch for each host
 #      [user@host ~]$ git checkout -b hostname
 #
 # DOTFILE ROLLBACK
@@ -60,6 +59,7 @@
     - name: Install pre-requisites
       yum: state=present name={{ item }}
       sudo: '{{ effective_userid.stdout != "0" | bool }}'
+      ignore_errors: yes
       with_items:
         - vim-enhanced
         - python-pip
@@ -68,6 +68,7 @@
     - name: Install latest versions of python modules
       pip: state=present name={{ item }}
       sudo: '{{ effective_userid.stdout != "0" | bool }}'
+      ignore_errors: yes
       with_items:
         - jedi
         - pylint
