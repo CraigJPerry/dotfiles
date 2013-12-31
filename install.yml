@@ -87,6 +87,15 @@
       shell: "echo | vim -f +BundleInstall +qall"
       when: vundle_cloned | changed
 
+    - name: DIRS | Public Code
+      file: state=directory path=~/Code/public
+
+    - name: DIRS | Gists
+      file: state=directory path=~/Code/gists
+
+    - name: DIRS | 3rd Party
+      file: state=directory path=~/Code/3rd_party
+
     # Rollback (--tags rollback)
 
     - name: ROLLBACK | Delete Linked Dotfiles
