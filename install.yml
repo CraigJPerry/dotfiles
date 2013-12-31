@@ -103,7 +103,7 @@
       changed_when: ssh_key.rc != 0
 
     - name: SSH | Generate Key
-      command: "ssh-keygen -N "" -t rsa -f ~/.ssh/id_rsa"
+      command: "ssh-keygen -N '' -t rsa -f ~/.ssh/id_rsa"
       when: ssh_key | changed
 
     # Rollback (--tags rollback)
