@@ -111,6 +111,10 @@
       register: ssh_key
       changed_when: ssh_key.rc != 0
 
+    - name: SSH | Make dir
+      file: state=directory path=~/.ssh mode=0400
+      when: ssh_key | changed
+
     - name: SSH | Generate Key
       command: "ssh-keygen -N '' -t rsa -f ~/.ssh/id_rsa"
       when: ssh_key | changed
