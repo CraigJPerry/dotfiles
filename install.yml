@@ -21,7 +21,9 @@
 
   vars:
 
+    # Override with -e this_dir=~/wherever
     this_dir: "{{ ansible_env.PWD }}"
+
     backup_dir: ~/.dotfiles.old
     dotfiles:
       - source: bashrc
