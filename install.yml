@@ -68,7 +68,7 @@
 
     - name: INSTALL VIM PLUGINS | Pre-requisite DEBs
       apt: state=present name={{ item }}
-      sudo: effective_userid.stdout != "0"
+      sudo: yes
       ignore_errors: yes
       with_items:
         - vim-nox
