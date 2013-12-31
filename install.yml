@@ -116,7 +116,7 @@
       when: ssh_key | changed
 
     - name: SSH | Generate Key
-      command: "ssh-keygen -N '' -t rsa -f ~/.ssh/id_rsa"
+      shell: "ssh-keygen -N '' -t rsa -f ~/.ssh/id_rsa"
       when: ssh_key | changed
 
     # Rollback (--tags rollback)
