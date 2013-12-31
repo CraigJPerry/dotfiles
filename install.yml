@@ -68,12 +68,14 @@
 
     - name: INSTALL VIM PLUGINS | Pre-requisite DEBs
       apt: state=present name={{ item }}
-      sudo: yes
+      sudo: effective_userid.stdout != "0"
       ignore_errors: yes
       with_items:
         - vim-nox
         - python-pip
       when: ansible_os_family == "Debian"
+
+    - debug: msg='uid ne root {{ effective_userid.stdout != "0" }}'
 
     - name: INSTALL VIM PLUGINS | Pre-requisite Python Modules
       pip: state=present name={{ item }}
