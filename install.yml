@@ -49,7 +49,7 @@
       with_items: dotfiles
 
     - name: INSTALL DOTFILES | Link New Dotfiles
-      file: state=link force=yes src={{ this_dir }}/{{ item.source }} dest=~/{{ item.dest }}
+      file: state=link force=yes src={{ this_dir }}/dotfiles/{{ item.source }} dest=~/{{ item.dest }}
       with_items: dotfiles
 
     - name: CHECK | Effective User ID
@@ -123,7 +123,7 @@
     # Rollback (--tags rollback)
 
     - name: ROLLBACK | Delete Linked Dotfiles
-      file: state=absent path={{ this_dir }}/{{ item.dest }}
+      file: state=absent path=~/{{ item.dest }}
       with_items: dotfiles
       tags:
         - rollback
