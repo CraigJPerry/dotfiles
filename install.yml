@@ -66,6 +66,15 @@
         - python-pip
       when: ansible_os_family == "RedHat"
 
+    - name: INSTALL VIM PLUGINS | Pre-requisite DEBs
+      apt: state=present name={{ item }}
+      sudo: '{{ effective_userid.stdout != "0" | bool }}'
+      ignore_errors: yes
+      with_items:
+        - vim-nox
+        - python-pip
+      when: ansible_os_family == "Debian"
+
     - name: INSTALL VIM PLUGINS | Pre-requisite Python Modules
       pip: state=present name={{ item }}
       sudo: '{{ effective_userid.stdout != "0" | bool }}'
