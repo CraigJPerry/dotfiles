@@ -2,7 +2,7 @@ language: python
 python:
   - "2.7"
 install:
-  - "pip install --use-mirrors ansible"
+  - "pip install ansible"
 script:
   - ansible-playbook --connection local --limit localhost --inventory-file=localhost, install.yml
 
