@@ -113,7 +113,7 @@
       when: ansible_env.TRAVIS is not defined
 
     - name: SSH | Make dir
-      file: state=directory path=~/.ssh mode=0400
+      file: state=directory path=~/.ssh mode=0600
       when: ssh_key | changed
 
     - name: SSH | Generate Key
