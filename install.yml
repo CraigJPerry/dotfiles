@@ -112,6 +112,7 @@
       ignore_errors: yes
       register: ssh_key
       changed_when: ssh_key.rc != 0
+      when: ansible_env.TRAVIS is not defined
 
     - name: SSH | Make dir
       file: state=directory path=~/.ssh mode=0400
