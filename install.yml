@@ -97,13 +97,13 @@
       file: state=directory path=~/Code/3rd_party
 
     - name: SSH | Check Key
-      command: ls ~/.ssh/id_rsa > /dev/null 2>&1
+      command: "ls ~/.ssh/id_rsa"
       ignore_errors: yes
       register: ssh_key
       changed_when: ssh_key.rc != 0
 
     - name: SSH | Generate Key
-      command: ssh-keygen -N "" -t rsa -f ~/.ssh/id_rsa
+      command: "ssh-keygen -N "" -t rsa -f ~/.ssh/id_rsa"
       when: ssh_key | changed
 
     # Rollback (--tags rollback)
