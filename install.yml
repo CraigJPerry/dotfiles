@@ -112,7 +112,7 @@
       changed_when: ssh_key.rc != 0
 
     - name: SSH | Make dir
-      file: state=directory path=~/.ssh mode=0600
+      file: state=directory path=~/.ssh mode=0700
       when: ssh_key | changed
 
     - name: SSH | Generate Key
