@@ -109,8 +109,9 @@
         - rollback
       when: this_is_an_installation_run is not defined
 
-    - name: INSTALL VIM PLUGINS | Restore Backups
+    - name: ROLLBACK | Restore Backups
       copy: src={{ backup_dir }}/{{ item.source }} dest=~/{{ item.dest }}
+      ignore_errors: yes
       with_items: dotfiles
       tags:
         - rollback
