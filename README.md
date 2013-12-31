@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/CraigJPerry/dotfiles.png?branch=master)](https://travis-ci.org/CraigJPerry/dotfiles)
+
 My cross platform (Linux, MacOS, Solaris, Windows, FreeBSD, OpenBSD)
 user configuration files.
 

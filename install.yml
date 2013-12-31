@@ -59,16 +59,25 @@
 
     - name: INSTALL VIM PLUGINS | Pre-requisite RPMs
       yum: state=present name={{ item }}
-      sudo: '{{ effective_userid.stdout != "0" | bool }}'
+      sudo: effective_userid.stdout != "0"
       ignore_errors: yes
       with_items:
         - vim-enhanced
         - python-pip
       when: ansible_os_family == "RedHat"
 
+    - name: INSTALL VIM PLUGINS | Pre-requisite DEBs
+      apt: state=present name={{ item }}
+      sudo: effective_userid.stdout != "0"
+      ignore_errors: yes
+      with_items:
+        - vim-nox
+        - python-pip
+      when: ansible_os_family == "Debian"
+
     - name: INSTALL VIM PLUGINS | Pre-requisite Python Modules
       pip: state=present name={{ item }}
-      sudo: '{{ effective_userid.stdout != "0" | bool }}'
+      sudo: effective_userid.stdout != "0"
       ignore_errors: yes
       with_items:
         - jedi
@@ -97,13 +106,18 @@
       file: state=directory path=~/Code/3rd_party
 
     - name: SSH | Check Key
-      command: ls ~/.ssh/id_rsa > /dev/null 2>&1
+      command: "ls ~/.ssh/id_rsa"
       ignore_errors: yes
       register: ssh_key
       changed_when: ssh_key.rc != 0
+      when: ansible_env.TRAVIS is not defined
+
+    - name: SSH | Make dir
+      file: state=directory path=~/.ssh mode=0400
+      when: ssh_key | changed
 
     - name: SSH | Generate Key
-      command: ssh-keygen -N "" -t rsa -f ~/.ssh/id_rsa
+      shell: "ssh-keygen -N '' -t rsa -f ~/.ssh/id_rsa"
       when: ssh_key | changed
 
     # Rollback (--tags rollback)
