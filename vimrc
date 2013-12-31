@@ -6,6 +6,7 @@ set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
+
 Bundle 'gmarik/vundle'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'scrooloose/syntastic'
@@ -13,7 +14,9 @@ Bundle 'tpope/vim-surround'
 Bundle 'davidhalter/jedi-vim'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'mhinz/vim-signify'
-Bundle 'SirVer/ultisnips'  " Requires vim compiled with python
+
+" Requires vim compiled with python
+Bundle 'SirVer/ultisnips'
 
 Bundle 'neilhwatson/vim_cf3'
 au BufRead,BufNewFile *.cf set filetype=cf3
