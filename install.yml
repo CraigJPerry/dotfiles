@@ -106,7 +106,7 @@
       file: state=directory path=~/Code/3rd_party
 
     - name: SSH | Check Key
-      command: "ls ~/.ssh/id_rsa"
+      shell: "ls ~/.ssh/id_rsa"
       ignore_errors: yes
       register: ssh_key
       changed_when: ssh_key.rc != 0
