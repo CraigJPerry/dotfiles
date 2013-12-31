@@ -21,7 +21,9 @@
 
   vars:
 
+    # Override with -e this_dir=~/wherever
     this_dir: "{{ ansible_env.PWD }}"
+
     backup_dir: ~/.dotfiles.old
     dotfiles:
       - source: bashrc
@@ -49,7 +51,7 @@
       with_items: dotfiles
 
     - name: INSTALL DOTFILES | Link New Dotfiles
-      file: state=link force=yes src={{ this_dir }}/{{ item.source }} dest=~/{{ item.dest }}
+      file: state=link force=yes src={{ this_dir }}/dotfiles/{{ item.source }} dest=~/{{ item.dest }}
       with_items: dotfiles
 
     - name: CHECK | Effective User ID
@@ -106,14 +108,13 @@
       file: state=directory path=~/Code/3rd_party
 
     - name: SSH | Check Key
-      command: "ls ~/.ssh/id_rsa"
+      shell: "ls ~/.ssh/id_rsa"
       ignore_errors: yes
       register: ssh_key
       changed_when: ssh_key.rc != 0
-      when: ansible_env.TRAVIS is not defined
 
     - name: SSH | Make dir
-      file: state=directory path=~/.ssh mode=0400
+      file: state=directory path=~/.ssh mode=0700
       when: ssh_key | changed
 
     - name: SSH | Generate Key
@@ -123,7 +124,7 @@
     # Rollback (--tags rollback)
 
     - name: ROLLBACK | Delete Linked Dotfiles
-      file: state=absent path={{ this_dir }}/{{ item.dest }}
+      file: state=absent path=~/{{ item.dest }}
       with_items: dotfiles
       tags:
         - rollback
