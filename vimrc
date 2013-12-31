@@ -1,50 +1,19 @@
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Craig's vimrc (with Vundle version)
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Install a powerline font https://github.com/Lokaltog/powerline-fonts
-" Install dependencies:
-"    sudo yum -y install git vim-enhanced pylint python-pep8 python-jedi
-"    (non-root) pip install --user pylint pep8 jedi
-" mkdir -p ~/.vim/bundle
-" git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
-" vim +BundleInstall +qall
-
+" See install.yml for dependency installation
 
 let mapleader=','
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Vundle (Package Manager) Setup
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 Bundle 'gmarik/vundle'
-
-" Bundles Go Here...
 Bundle 'Lokaltog/vim-easymotion'
-
-Bundle 'bling/vim-airline'
-let g:airline_powerline_fonts=1
-let g:airline#extensions#tabline#enabled=1
-set ttimeoutlen=50
-set report=0
-set ambiwidth=double
-
-" Enable 256 colours with PuTTY
-set term=xterm
-let &t_Co=256
-Bundle 'flazz/vim-colorschemes'
-colorscheme Monokai
-
-" Requires vim compiled with python
-Bundle 'SirVer/ultisnips'
-
 Bundle 'scrooloose/syntastic'
-
 Bundle 'tpope/vim-surround'
-
 Bundle 'davidhalter/jedi-vim'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'mhinz/vim-signify'
+Bundle 'SirVer/ultisnips'  " Requires vim compiled with python
 
 Bundle 'neilhwatson/vim_cf3'
 au BufRead,BufNewFile *.cf set filetype=cf3
@@ -53,87 +22,59 @@ au BufRead,BufNewFile *.cf normal zR
 au BufRead,BufNewFile *.cfe normal zR
 let EnableCFE3KeywordAbbreviations=1
 
-Bundle 'scrooloose/nerdcommenter'
+Bundle 'bling/vim-airline'
+let g:airline_powerline_fonts=1
+let g:airline#extensions#tabline#enabled=1
+set ttimeoutlen=50
+set report=0
+set ambiwidth=double
 
-Bundle 'mhinz/vim-signify'
+set term=xterm  " breaks some common terminal emulators
+let &t_Co=256
+Bundle 'flazz/vim-colorschemes'
+colorscheme Monokai
+
+" :help <whatever> for details about any of the below
 
 filetype plugin indent on
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" End Vundle (Package Manager) Setup
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" General High Level Setup
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set nomodeline " History of successful attacks against vim modelines :-(
+set nomodeline  " Historically successful attack vector against vim...
 set encoding=utf8
-
-" No annoying filename~ files left around
 set nobackup
 set nowritebackup
-
 set history=100
-
-" Allow hidden buffers, don't close a buffer just because it's offscreen
 set hidden
-
-" Never use tab chars, always use spaces instead
 set expandtab
-
-" Round the number of spaces inserted to the nearest "tabstop"
 set smarttab
 set tabstop=4
 set shiftwidth=4
 set shiftround
 set softtabstop=4
-
-set nowrap " Don't wrap the display of long lines by default
-set textwidth=0 " Don't automatically wrap text as i write it
-set formatoptions=croq textwidth=72 " But do wrap comments as i write them
-set smartcase " Case insensitive search unless a capital is in the search term
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" End General High Level Setup
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Interface / View Setup
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set nowrap
+set textwidth=0
+set formatoptions=croq textwidth=72
+set smartcase
 syntax on
-
 set guifont=Liberation\ Mono\ for\ Powerline\ 10
 set guioptions-=T
-
-" Line numbers in the gutter, relativenumber feature only available vim >= 7.03
-if version >= 703
-    set relativenumber
-else
-    set number
-endif
+set number
 set numberwidth=4
-
-" Display column and line cross hairs
 set cursorline
 set cursorcolumn
-
-" Begin scrolling before cursor reaches screen edge
 set scrolloff=1
 set sidescrolloff=5
-
-" Show matching brackets for 200ms
+set hlsearch
 set showmatch
 set mat=2
+set wildmenu
+set wildignore=*.pyc,*.class,*.o,*~,.git\*,.svn\*
+set backspace=eol,start,indent
+set autowrite
 
 " Return to last edit position when opening files
 autocmd BufReadPost *
     \ if line("'\"") > 0 && line("'\"") <= line("$") |
     \   exe "normal! g`\"" |
 \ endif
-
-" Turn on the enhanced autocomplete
-set wildmenu
-set wildignore=*.pyc,*.class,*.o,*~,.git\*,.svn\*
 
 " Highlight trailing whitespace
 highlight ExtraWhitespace ctermbg=red guibg=red
@@ -142,27 +83,16 @@ au BufEnter * match ExtraWhitespace /\s\+$/
 au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 au InsertLeave * match ExtraWhiteSpace /\s\+$/
 
-set hlsearch
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" End Interface / View Setup
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Key bindings
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Map :Q to :q, i mess this up constantly
+" Map :Q to :q
 command! Q q
+
+" Map Y like D, C etc. behave (to end of line)
+nnoremap Y  y$
 
 " Control-x to write-quit-all
 nnoremap <C-x> :wqa!<CR>
 inoremap <C-x> <C-o>:wqa!<CR>
 vnoremap <C-x> <C-c>:wqa!<CR>
-
-set backspace=eol,start,indent
-
-" Map Y like D, C etc. behave (to end of line)
-nnoremap Y  y$
 
 " Toggle paste mode
 nnoremap <F2> :set invpaste paste?<CR>
@@ -193,13 +123,7 @@ nnoremap <leader>b :buffers<CR>:buffer
 
 " Tab management
 nnoremap <leader>t :tabs<CR>:tab 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" End Key bindings
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Mode Specific - Visual
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 vnoremap <silent> * :call VisualSelection('f')<CR>
 vnoremap <silent> # :call VisualSelection('b')<CR>
 function! VisualSelection(direction) range
@@ -215,29 +139,12 @@ function! VisualSelection(direction) range
     let @/ = l:pattern
     let @" = l:saved_reg
 endfunction
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" End Mode Specific - Visual
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" File Content - Python
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Enhanced syntax highlighting
-let python_highlight_all = 1
-set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
-set autowrite " Save when :make is invoked
-set makeprg=python\ -u\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\"
-set errorformat=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" End File Content - Python
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" File Content - JSON
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Pretty print a buffer containing JSON
 nnoremap <leader>jp :%!python -m json.tool<CR>
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" File Content - JSON
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Python Customisation
+" set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
+" set makeprg=python\ -u\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\"
+" set errorformat=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
 
