@@ -32,7 +32,6 @@ function parse_git_branch {
 export PS1="[\u@\h \W]\$(parse_git_branch)\$ "
 
 # Variables
-export CDPATH="$HOME/Code/public"
 export EDITOR="vim -f"       # Keep vim in foreground
 
 # Aliases
