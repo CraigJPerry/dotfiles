@@ -8,6 +8,9 @@ fi
 
 # User specific environment and startup programs
 
+# Google AppEngine SDK
+PATH="/home/craig/Apps/google_appengine:$PATH"
+
 PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 export PATH
 
