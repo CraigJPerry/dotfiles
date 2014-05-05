@@ -104,23 +104,14 @@
       shell: "echo | vim -f +BundleInstall +qall"
       when: vundle_cloned | changed
 
-    - name: DIRS | Public Code
-      file: state=directory path=~/Code/public
+    - name: DIRS | Github
+      file: state=directory path=~/Code/github.com
 
     - name: DIRS | Gists
-      file: state=directory path=~/Code/gists
+      file: state=directory path=~/Code/gist.github.com
 
-    - name: DIRS | 3rd Party
-      file: state=directory path=~/Code/3rd_party
-
-    - name: REPOS | Public Code | home-network
-      git: repo=https://github.com/CraigJPerry/home-network.git dest=~/Code/public/home-network
-
-    - name: REPOS | Public Code | setuptools-pep8
-      git: repo=https://github.com/CraigJPerry/setuptools-pep8.git dest=~/Code/public/setuptools-pep8
-
-    - name: REPOS | Public Code | craigs_python_utils
-      git: repo=https://github.com/CraigJPerry/craigs_python_utils.git dest=~/Code/public/craigs_python_utils
+    - name: DIRS | Local
+      file: state=directory path=~/Code/{{ ansible_fqdn }}
 
     - name: SSH | Check Key
       shell: "ls ~/.ssh/id_rsa"
