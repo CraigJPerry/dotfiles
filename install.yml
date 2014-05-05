@@ -59,6 +59,12 @@
       register: effective_userid
       changed_when: effective_userid.rc != 0
 
+    - name: CONKY | Install Conky
+      yum: state=present name=conky
+      sudo: effective_userid.stdout != "0"
+      ignore_errors: yes
+      when: ansible_os_family == "RedHat"
+
     - name: INSTALL VIM PLUGINS | Pre-requisite RPMs
       yum: state=present name={{ item }}
       sudo: effective_userid.stdout != "0"
