@@ -36,6 +36,10 @@
         dest: .gitconfig
       - source: vimrc
         dest: .vimrc
+      - source: conkyrc
+        dest: .conkyrc
+      - source: conky.desktop
+        dest: .config/autostart/conky.desktop
 
   tasks:
 
