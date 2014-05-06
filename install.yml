@@ -36,6 +36,8 @@
         dest: .gitconfig
       - source: vimrc
         dest: .vimrc
+      - source: conkyrc
+        dest: .conkyrc
 
   tasks:
 
