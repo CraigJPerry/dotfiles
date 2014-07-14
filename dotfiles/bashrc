@@ -40,27 +40,34 @@ alias ls="ls --color=auto"
 alias grep="grep --color=auto"
 alias c="clear"
 alias d="date"
+alias cdc="cd ~/Code/github.com/CraigJPerry"
+alias cdd="cd ~/Downloads"
+alias cdg="cd ~/Code/github.com"
+alias cdi="cd ~/Code/gist.github.com"
+alias cdl="cd ~/Code/$(hostname)"
+
 # Grep for a running process
 alias pg="ps -ef | head -n1 ; ps -efH | grep -v grep | grep -i"
+
 # This makes it easy to answer "when did you do X?" during releases
 alias ts="echo \"  [====================  \`date \"+%Y-%m-%d %H:%M:%S\"\`  ====================]  \""
+
 # Common git activities
 alias gst="git branch -a && git status"
 alias gbd="git branch -d"
-alias gdc="git diff --cached"
 alias gd="git diff"
 alias gm="git merge --no-ff"
 alias ghm="git checkout master"
 alias ghb="git checkout -b"
 alias gh="git checkout"
-alias gcm="git commit"
+alias ga="git add ."
+alias gcm="git commit -m"
 alias gca="git commit -a"
 alias grb="git reset HEAD~1"
-alias gpo="git push origin"
-alias gpl="git pull"
+alias gp="git push"
 alias gl="git lg"            # See [aliases] in .gitconfig
 alias gt="git tag -a"
-alias gf="git fetch"
+alias gfa="git fetch -a --prune"
 
 # Includes
 if which virtualenvwrapper.sh > /dev/null 2>&1; then
