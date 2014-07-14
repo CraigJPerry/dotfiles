@@ -41,14 +41,19 @@
       file: state=link force=yes src={{ ansible_env.PWD }}/dotfiles/{{ item.source }} dest=~/{{ item.dest }}
       with_items: dotfiles
 
+    - name: CHECK | Effective User ID
+      command: id -u
+      register: effective_userid
+      changed_when: False
+
     - name: CONKY | Install Conky
       yum: state=present name=conky
-      sudo: '"{{ ansible_user_id }}" != "root"'
+      sudo: effective_userid.stdout != "0"
       ignore_errors: yes
 
     - name: INSTALL VIM PLUGINS | Pre-requisite RPMs
       yum: state=present name={{ item }}
-      sudo: '"{{ ansible_user_id }}" != "root"'
+      sudo: effective_userid.stdout != "0"
       ignore_errors: yes
       with_items:
         - vim-enhanced
@@ -56,7 +61,7 @@
 
     - name: INSTALL VIM PLUGINS | Pre-requisite Python Modules
       pip: state=present name={{ item }}
-      sudo: '"{{ ansible_user_id }}" != "root"'
+      sudo: effective_userid.stdout != "0"
       ignore_errors: yes
       with_items:
         - jedi
