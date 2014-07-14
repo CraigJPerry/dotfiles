@@ -31,6 +31,7 @@ let g:airline#extensions#tabline#enabled=1
 set ttimeoutlen=50
 set report=0
 set ambiwidth=double
+set laststatus=2
 
 set term=xterm  " breaks some common terminal emulators
 let &t_Co=256
@@ -145,6 +146,9 @@ endfunction
 
 " Pretty print a buffer containing JSON
 nnoremap <leader>jp :%!python -m json.tool<CR>
+
+" Sudo write file which i don't have perms to write
+nnoremap <leader>sw :w !sudo tee %<CR>
 
 " Python Customisation
 " set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
