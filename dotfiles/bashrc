@@ -64,7 +64,7 @@ alias gf="git fetch"
 
 # Includes
 if which virtualenvwrapper.sh > /dev/null 2>&1; then
-    export PROJECT_HOME="$HOME/Code"
+    export PROJECT_HOME="$HOME/Code/$(hostname)"
     export WORKON_HOME="$HOME/.virtualenvs"
     . $(which virtualenvwrapper.sh)
 fi
