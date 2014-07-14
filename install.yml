@@ -80,15 +80,6 @@
       shell: "echo | vim -f +BundleInstall +qall"
       when: vundle_cloned | changed
 
-    - name: DIRS | Github
-      file: state=directory path=~/Code/github.com
-
-    - name: DIRS | Gists
-      file: state=directory path=~/Code/gist.github.com
-
-    - name: DIRS | Local
-      file: state=directory path=~/Code/{{ ansible_fqdn }}
-
     - name: SSH | Check Key
       shell: "ls ~/.ssh/id_rsa"
       ignore_errors: yes
@@ -102,4 +93,28 @@
     - name: SSH | Generate Key
       shell: "ssh-keygen -N '' -t rsa -f ~/.ssh/id_rsa"
       when: ssh_key | changed
+
+    - name: DIRS | Github
+      file: state=directory path=~/Code/github.com
+
+    - name: DIRS | Gists
+      file: state=directory path=~/Code/gist.github.com
+
+    - name: DIRS | Local
+      file: state=directory path=~/Code/{{ ansible_fqdn }}
+
+    - name: GIT | Clone reference project django
+      git: repo="https://github.com/django/django.git" dest=~/Code/github.com/django/django
+
+    - name: GIT | Clone reference project pelican
+      git: repo="https://github.com/getpelican/pelican.git" dest=~/Code/github.com/getpelican/pelican
+
+    - name: GIT | Clone reference project flask
+      git: repo="https://github.com/mitsuhiko/flask.git" dest=~/Code/github.com/mitsuhiko/flask
+
+    - name: GIT | Clone reference project click
+      git: repo="https://github.com/mitsuhiko/click.git" dest=~/Code/github.com/mitsuhiko/click
+
+    - name: GIT | Clone reference project requests
+      git: repo="https://github.com/kennethreitz/requests.git" dest=~/Code/github.com/kennethreitz/requests
 
