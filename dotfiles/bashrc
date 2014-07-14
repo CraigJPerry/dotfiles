@@ -40,6 +40,11 @@ alias ls="ls --color=auto"
 alias grep="grep --color=auto"
 alias c="clear"
 alias d="date"
+alias cdc="cd ~/Code/github.com/CraigJPerry"
+alias cdd="cd ~/Downloads"
+alias cdg="cd ~/Code/github.com"
+alias cdi="cd ~/Code/gist.github.com"
+alias cdl="cd ~/Code/$(hostname)"
 # Grep for a running process
 alias pg="ps -ef | head -n1 ; ps -efH | grep -v grep | grep -i"
 # This makes it easy to answer "when did you do X?" during releases
