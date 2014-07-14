@@ -31,6 +31,7 @@ let g:airline#extensions#tabline#enabled=1
 set ttimeoutlen=50
 set report=0
 set ambiwidth=double
+set laststatus=2
 
 set term=xterm  " breaks some common terminal emulators
 let &t_Co=256
