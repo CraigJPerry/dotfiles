@@ -147,6 +147,9 @@ endfunction
 " Pretty print a buffer containing JSON
 nnoremap <leader>jp :%!python -m json.tool<CR>
 
+" Sudo write file which i don't have perms to write
+nnoremap <leader>sw :w !sudo tee %<CR>
+
 " Python Customisation
 " set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 " set makeprg=python\ -u\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\"
