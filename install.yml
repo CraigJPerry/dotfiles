@@ -10,21 +10,15 @@
 # 3. Run with:
 #      [user@host dotfiles]$ ansible-playbook --connection=local --inventory-file=localhost, install.yml
 #    NB: the , after localhost is required
-# 4. It's a good idea (but not required) to create a branch for each host
+# 4. Create a branch for each host's customisations (can be merged to
+#    other branches)
 #      [user@host ~]$ git checkout -b hostname
 #
-# DOTFILE ROLLBACK
-# 1. Revert to backed up original dotfiles with:
-#   [user@host ~]$ ansible-playbook --connection=local --inventory-file=localhost, install.yml --tags rollback
 
-- hosts: all
+- hosts: localhost
 
   vars:
 
-    # Override with -e this_dir=~/wherever
-    this_dir: "{{ ansible_env.PWD }}"
-
-    backup_dir: ~/.dotfiles.old
     dotfiles:
       - source: bashrc
         dest: .bashrc
@@ -43,53 +37,26 @@
 
   tasks:
 
-    # Installation (no --tags on ansible cmdline)
-
-    - name: "BACKUP | Make Backup Folder: {{ backup_dir }}"
-      register: this_is_an_installation_run
-      file: state=directory path={{ backup_dir }}
-
-    - name: BACKUP | Backup Old Dotfiles
-      copy: src=~/{{ item.dest }} dest={{ backup_dir }}/{{ item.source }} backup=yes
-      ignore_errors: yes
-      with_items: dotfiles
-
     - name: INSTALL DOTFILES | Link New Dotfiles
-      file: state=link force=yes src={{ this_dir }}/dotfiles/{{ item.source }} dest=~/{{ item.dest }}
+      file: state=link force=yes src={{ ansible_env.PWD }}/dotfiles/{{ item.source }} dest=~/{{ item.dest }}
       with_items: dotfiles
-
-    - name: CHECK | Effective User ID
-      command: id -u
-      register: effective_userid
-      changed_when: effective_userid.rc != 0
 
     - name: CONKY | Install Conky
       yum: state=present name=conky
-      sudo: effective_userid.stdout != "0"
+      sudo: '"{{ ansible_user_id }}" != "root"'
       ignore_errors: yes
-      when: ansible_os_family == "RedHat"
 
     - name: INSTALL VIM PLUGINS | Pre-requisite RPMs
       yum: state=present name={{ item }}
-      sudo: effective_userid.stdout != "0"
+      sudo: '"{{ ansible_user_id }}" != "root"'
       ignore_errors: yes
       with_items:
         - vim-enhanced
         - python-pip
-      when: ansible_os_family == "RedHat"
-
-    - name: INSTALL VIM PLUGINS | Pre-requisite DEBs
-      apt: state=present name={{ item }}
-      sudo: effective_userid.stdout != "0"
-      ignore_errors: yes
-      with_items:
-        - vim-nox
-        - python-pip
-      when: ansible_os_family == "Debian"
 
     - name: INSTALL VIM PLUGINS | Pre-requisite Python Modules
       pip: state=present name={{ item }}
-      sudo: effective_userid.stdout != "0"
+      sudo: '"{{ ansible_user_id }}" != "root"'
       ignore_errors: yes
       with_items:
         - jedi
@@ -130,21 +97,4 @@
     - name: SSH | Generate Key
       shell: "ssh-keygen -N '' -t rsa -f ~/.ssh/id_rsa"
       when: ssh_key | changed
-
-    # Rollback (--tags rollback)
-
-    - name: ROLLBACK | Delete Linked Dotfiles
-      file: state=absent path=~/{{ item.dest }}
-      with_items: dotfiles
-      tags:
-        - rollback
-      when: this_is_an_installation_run is not defined
-
-    - name: ROLLBACK | Restore Backups
-      copy: src={{ backup_dir }}/{{ item.source }} dest=~/{{ item.dest }}
-      ignore_errors: yes
-      with_items: dotfiles
-      tags:
-        - rollback
-      when: this_is_an_installation_run is not defined
 
