@@ -47,13 +47,18 @@
       changed_when: False
 
     - name: CONKY | Install Conky
-      yum: state=present name=conky
-      sudo: effective_userid.stdout != "0"
+      yum: state=present name={{ item }}
+      sudo: yes
       ignore_errors: yes
+      with_items:
+        - conky
+        - hddtemp
+      notify:
+        - start hddtemp
 
     - name: INSTALL VIM PLUGINS | Pre-requisite RPMs
       yum: state=present name={{ item }}
-      sudo: effective_userid.stdout != "0"
+      sudo: yes
       ignore_errors: yes
       with_items:
         - vim-enhanced
@@ -61,7 +66,7 @@
 
     - name: INSTALL VIM PLUGINS | Pre-requisite Python Modules
       pip: state=present name={{ item }}
-      sudo: effective_userid.stdout != "0"
+      sudo: yes
       ignore_errors: yes
       with_items:
         - jedi
@@ -123,4 +128,11 @@
     - name: GIT | Clone reference project requests
       git: repo="https://github.com/kennethreitz/requests.git" dest=~/Code/github.com/kennethreitz/requests
       when: checkout_github | changed
+
+
+  handlers:
+
+    - name: start hddtemp
+      service: name=hddtemp state=started enabled=yes
+      sudo: yes
 
