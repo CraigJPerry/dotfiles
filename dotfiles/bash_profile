@@ -1,16 +1,23 @@
 #!/bin/bash # Never actually run directly, helps syntax highlighter though
 # .bash_profile
 
-# Get the aliases and functions
+if [ -f /etc/profile ]; then
+    . /etc/profile
+fi
+
+function addtopath
+{
+    if ! echo ${PATH} | /bin/grep -q "$1" ; then
+        PATH=${1}:${PATH}
+    fi
+}
+
+# User specific environment and startup programs
+addtopath $HOME/bin
+addtopath $HOME/.local/bin
+export PATH
+
 if [ -f ~/.bashrc ]; then
     . ~/.bashrc
 fi
-
-# User specific environment and startup programs
-
-# Google AppEngine SDK
-PATH="$HOME/Apps/google_appengine:$PATH"
-
-PATH="$HOME/bin:$HOME/.local/bin:$PATH"
-export PATH
 
