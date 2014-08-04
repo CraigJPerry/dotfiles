@@ -41,17 +41,20 @@ Performance
  ${color grey}Uptime:$color $uptime  ${color grey}($color$loadavg${color grey})$color
     ${color grey}CPU:$color ${cpu cpu0}${color grey}% @$color$freq_g${color grey}GHz$color $running_processes/$processes ${alignr}${cpugraph cpu0 15,110 789E2D A7CC5C}
     ${color grey}Mem:$color $mem/$memmax    ${membar 6}
-   ${color grey}Swap:$color $swap/$swapmax      ${swapbar 6}
-   ${color grey}Batt:$color $battery_percent${color grey}%$color               ${battery_bar 6}
+   ${color grey}Swap:$color $swap/$swapmax       ${swapbar 6}
 $hr
 Temperatures:
-  ${color grey}CPU:$color ${hwmon 0 temp 1}${color grey}°C ($color${hwmon 2 temp 2}${color grey}°C/$color${hwmon 2 temp 4}${color grey}°C)$color
-  ${color grey}HDD:$color ${hddtemp /dev/sda}${color grey}°C$color
+  ${color grey}CPU:$color ${hwmon 0 temp 2}${color grey}°C$color ${hwmon 0 temp 3}${color grey}°C$color ${hwmon 0 temp 4}${color grey}°C$color ${hwmon 0 temp 5}${color grey}°C$color 
+  ${color grey}GPU:$color ${execi 60 /usr/bin/nvidia-settings -query GPUCoreTemp | /bin/awk '/d1.local:0.0/{print $4}'}${color grey}°C$color
+  ${color grey}HDD:$color ${hddtemp /dev/sda}${color grey}°C$color ${hddtemp /dev/sdb}${color grey}°C$color
+
 $hr
 File systems:
   ${color grey}/$color     ${fs_used /}/${fs_size /}    ${fs_bar 6 /}
+  ${color grey}/boot$color ${fs_used /boot}/${fs_size /boot}      ${fs_bar 6 /boot}
   ${color grey}/var$color  ${fs_used /var}/${fs_size /var}    ${fs_bar 6 /var}
   ${color grey}/home$color ${fs_used /home}/${fs_size /home}    ${fs_bar 6 /home}
+  ${color grey}/srv$color  ${fs_used /srv}/${fs_size /srv}    ${fs_bar 6 /srv}
 $hr
 Networking:
   ${color grey}Address:$color   $gw_ip ${alignr}${color grey}($color${execi 3600 wget http://ipecho.net/plain -O- -q}${color grey})$color
