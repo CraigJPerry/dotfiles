@@ -1,0 +1,59 @@
+#!/bin/bash
+#
+# TITLE
+#   .nitrousboxrc
+# DESCRIPTION
+#   Symlink or copy this file to ~/.nitrousboxrc on your http://nitrous.io
+#   box and reboot it. This will ensure your box is configured for Java
+#   development (which is still an experimental feature) on this project.
+# AUTHOR
+#   Craig J Perry, <craigp84@gmail.com>
+#
+
+################################################################################
+# Configuration
+################################################################################
+MAVEN_VERSION="3.2.3"
+DATE="/bin/date"
+WGET="/usr/bin/wget"
+TAR="/bin/tar"
+RM="/bin/rm"
+
+
+################################################################################
+# Utilities & Helpers (no need to edit these)
+################################################################################
+_MVN_PATH="$HOME/apache-maven-${MAVEN_VERSION}"
+function info { echo "$( $DATE '+%F %T' ) [INFO]: $*" > /dev/stderr; }
+
+
+################################################################################
+# Main
+################################################################################
+
+if [[ ! -d $_MVN_PATH ]]; then
+  info "Downloading maven $MAVEN_VERSION as it wasn't found at: $_MVN_PATH"
+  $WGET "http://www.mirrorservice.org/sites/ftp.apache.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz" > /dev/null 2>&1
+
+  info "Extracting maven"
+  $TAR xzf "apache-maven-${MAVEN_VERSION}-bin.tar.gz" > /dev/null 2>&1
+
+  info "Cleaning up maven tarball"
+  $RM "apache-maven-${MAVEN_VERSION}-bin.tar.gz"
+
+  info "Backing up bash profile"
+  cp .bash_profile .bash_profile.$( $DATE --iso-8601 )
+
+  info "Injecting env vars into ~/.bash_profile"
+  cat >> $HOME/.bash_profile <<-EOF
+	export JAVA_HOME="/usr/lib/jvm/java-7-oracle"
+	export M2_HOME="${_MVN_PATH}"
+	export PATH="\$JAVA_HOME/bin:\$M2_HOME/bin:\$PATH"
+
+EOF
+
+  info "Completed maven download & setup"
+else
+  info "Maven already present, skipping download & setup"
+fi
+
