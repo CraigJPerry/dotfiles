@@ -36,7 +36,7 @@ set laststatus=2
 set term=xterm  " breaks some common terminal emulators
 let &t_Co=256
 Bundle 'flazz/vim-colorschemes'
-colorscheme Monokai
+colorscheme molokai
 
 " :help <whatever> for details about any of the below
 
