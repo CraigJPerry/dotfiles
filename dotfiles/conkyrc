@@ -44,7 +44,7 @@ Performance
    ${color grey}Swap:$color $swap/$swapmax       ${swapbar 6}
 $hr
 Temperatures:
-  ${color grey}CPU:$color ${hwmon 0 temp 2}${color grey}°C$color ${hwmon 0 temp 3}${color grey}°C$color ${hwmon 0 temp 4}${color grey}°C$color ${hwmon 0 temp 5}${color grey}°C$color 
+  ${color grey}CPU:$color ${hwmon 1 temp 2}${color grey}°C$color ${hwmon 1 temp 3}${color grey}°C$color ${hwmon 1 temp 4}${color grey}°C$color ${hwmon 1 temp 5}${color grey}°C$color 
   ${color grey}GPU:$color ${execi 60 /usr/bin/nvidia-settings -query GPUCoreTemp | /bin/awk '/d1.local:0.0/{sub(/\./, "", $4); print $4}'}${color grey}°C$color
   ${color grey}HDD:$color ${hddtemp /dev/sda}${color grey}°C$color ${hddtemp /dev/sdb}${color grey}°C$color
 $hr
