@@ -46,7 +46,7 @@ $hr
 Temperatures:
   ${color grey}CPU:$color ${hwmon 1 temp 2}${color grey}°C$color ${hwmon 1 temp 3}${color grey}°C$color ${hwmon 1 temp 4}${color grey}°C$color ${hwmon 1 temp 5}${color grey}°C$color 
   ${color grey}GPU:$color ${execi 60 /usr/bin/nvidia-settings -query GPUCoreTemp | /bin/awk '/d1.local:0.0/{sub(/\./, "", $4); print $4}'}${color grey}°C$color
-  ${color grey}HDD:$color ${hddtemp /dev/sda}${color grey}°C$color ${hddtemp /dev/sdb}${color grey}°C$color
+  ${color grey}HDD:$color${execi 60 hddtemp /dev/sda | cut -f3 -d':'}${execi 60 hddtemp /dev/sdb | cut -f3 -d':'}
 $hr
 File systems:
   ${color grey}/$color     ${fs_used /}/${fs_size /}    ${fs_bar 6 /}
