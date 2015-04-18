@@ -53,7 +53,7 @@ File systems:
   ${color grey}/boot$color ${fs_used /boot}/${fs_size /boot}      ${fs_bar 6 /boot}
   ${color grey}/var$color  ${fs_used /var}/${fs_size /var}    ${fs_bar 6 /var}
   ${color grey}/home$color ${fs_used /home}/${fs_size /home}    ${fs_bar 6 /home}
-  ${color grey}/srv$color  ${fs_used /srv}/${fs_size /srv}    ${fs_bar 6 /srv}
+  ${color grey}/scratch$color  ${fs_used /scratch}/${fs_size /scratch}    ${fs_bar 6 /scratch}
 $hr
 Networking:
   ${color grey}Address:$color   $gw_ip ${alignr}${color grey}($color${execi 3600 wget http://ipecho.net/plain -O- -q}${color grey})$color
