@@ -80,6 +80,9 @@ autocmd BufReadPost *
     \   exe "normal! g`\"" |
 \ endif
 
+" Makefiles use tabs
+autocmd filetype make setlocal noexpandtab
+
 " Highlight trailing whitespace
 highlight ExtraWhitespace ctermbg=red guibg=red
 au ColorScheme * highlight ExtraWhitespace guibg=red
